@@ -1,15 +1,13 @@
-import java.util.NoSuchElementException;
-
-class Queue {
+class Queue<E> {
     private int size;
     private int front, rear, counter;
-    private String circularArray[];
+    private E[] circularArray;
 
     public Queue(int size) {
         this.size = size;
         this.front = this.rear = -1;
         this.counter = 0;
-        this.circularArray = new String[size];
+        this.circularArray = (E[]) new Object[size];
     }
 
     public boolean isFull() {
@@ -20,7 +18,7 @@ class Queue {
         return counter == 0;
     }
 
-    public void enqueue(String newElement) {
+    public void enqueue(E newElement) {
         if (isFull()) {
             resize();
         }
@@ -34,12 +32,12 @@ class Queue {
         counter++;
     }
 
-    public String dequeue() {
+    public E dequeue() {
         if (isEmpty()) {
-            throw new NoSuchElementException("Queue is empty");
+            return null;
         }
 
-        String elementToReturn = circularArray[front];
+        E valueDequeued = circularArray[front];
         front = (front + 1) % circularArray.length;
         counter--;
 
@@ -47,10 +45,10 @@ class Queue {
             front = rear = -1;
         }
 
-        return elementToReturn;
+        return valueDequeued;
     }
 
-    public String peek() {
+    public E peek() {
         if (isEmpty()) {
             return null;
         }
@@ -58,7 +56,7 @@ class Queue {
     }
 
     private void resize() {
-        String[] newElements = new String[size * 2];
+        E[] newElements = (E[]) new Object[size * 2];
 
         int i = 0;
         int j = front;
@@ -74,23 +72,11 @@ class Queue {
         size = size * 2;
         circularArray = newElements;
     }
-
-    public void displayQueue() {
-        if (isEmpty()) {
-            System.out.println("Queue is empty!");
-        } else {
-            int i = front;
-            do {
-                System.out.print(circularArray[i] + " ");
-                i = (i + 1) % circularArray.length;
-            } while (i != (rear + 1) % circularArray.length);
-        }
-    }
 }
 
 public class Main {
     public static void main(String[] args) {
-        Queue queue = new Queue(2);
+        Queue<String> queue = new Queue<>(2);
         System.out.println(queue.peek());
         queue.enqueue("John");
         queue.enqueue("Mary");
@@ -110,24 +96,5 @@ public class Main {
         System.out.println(queue.isEmpty());
         System.out.println(queue.peek());
 
-
-//        queue.add("John");
-//        System.out.println(queue.peek());
-//        queue.remove();
-//        queue.add("Maria");
-//        System.out.println(queue.peek());
-//        queue.remove();
-//        queue.add("Joni");
-//        System.out.println(queue.peek());
-//        queue.remove();
-//        queue.add("Ali");
-//        queue.add("Mihaela");
-//        queue.add("Isa");
-//        queue.add("Alin");
-//        queue.add("Mihai");
-//        queue.add("Matei");
-
-
-        //System.out.println("Hello world!");
     }
 }

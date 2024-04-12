@@ -1,46 +1,47 @@
-class Stack<E> {
-    private DoublyLinkedListNode<E> bottom = null;
-    private DoublyLinkedListNode<E> top = null;
+class Queue<E> {
+
+    private DoublyLinkedListNode<E> front = null;
+    private DoublyLinkedListNode<E> rear = null;
 
     public E peek() {
         if (isEmpty()) {
             return null;
         }
-        return top.value();
+        return front.value();
     }
 
-    public void push(E value) {
-        DoublyLinkedListNode<E> newNode = new DoublyLinkedListNode<E>(value);
+    public void enqueue(E value) {
+        DoublyLinkedListNode<E> newNode = new DoublyLinkedListNode<>(value);
         if (isEmpty()) {
-            bottom = newNode;
-            top = newNode;
+            front = newNode;
+            rear = newNode;
         } else {
-            top.next(newNode);
-            newNode.previous(top);
-            top = newNode;
+            rear.next(newNode);
+            newNode.previous(rear);
+            rear = newNode;
         }
     }
 
-    public E pop() {
+    public E dequeue() {
         if (isEmpty()) {
             return null;
         }
-        E valuePopped = top.value();
-        top = top.previous();
 
-        if (top == null) //Stack is empty
-        {
-            bottom = null;
+        E valueDequeued = front.value();
+        front = front.next();
+        if (front == null) {
+            rear = null;
         } else {
-            top.next = null;
+            front.previous(null);
         }
 
-        return valuePopped;
+        return valueDequeued;
     }
 
     public boolean isEmpty() {
-        if (top == null)
+        if (front == null) {
             return true;
+        }
         return false;
     }
 
@@ -92,26 +93,26 @@ class Stack<E> {
 public class Main {
     public static void main(String[] args) {
 
-        Stack<String> stack = new Stack<>();
+        Queue<String> queue = new Queue<>();
 
-        System.out.println(stack.peek());
-        stack.push("John");
-        stack.push("Mary");
-        System.out.println(stack.peek());
-        stack.push("George");
-        stack.pop();
-        System.out.println(stack.peek());
-        stack.pop();
-        System.out.println(stack.peek());
-        System.out.println(stack.isEmpty());
-        stack.push("Jolene");
-        System.out.println(stack.peek());
-        System.out.println(stack.peek());
-        stack.pop();
-        System.out.println(stack.isEmpty());
-        stack.pop();
-        System.out.println(stack.isEmpty());
-        System.out.println(stack.peek());
+        System.out.println(queue.peek());
+        queue.enqueue("John");
+        queue.enqueue("Mary");
+        System.out.println(queue.peek());
+        queue.enqueue("George");
+        queue.dequeue();
+        System.out.println(queue.peek());
+        queue.dequeue();
+        System.out.println(queue.peek());
+        System.out.println(queue.isEmpty());
+        queue.enqueue("Jolene");
+        System.out.println(queue.peek());
+        System.out.println(queue.peek());
+        queue.dequeue();
+        System.out.println(queue.isEmpty());
+        queue.dequeue();
+        System.out.println(queue.isEmpty());
+        System.out.println(queue.peek());
 
     }
 }
