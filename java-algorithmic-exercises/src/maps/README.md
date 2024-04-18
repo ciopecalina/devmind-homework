@@ -1,11 +1,11 @@
-Valid anagram
-Two sum
-Longest substring without repeating characters
-First unique character in string
-Longest palindrome
-Minimum Index Sum of Two Lists
-Intersection of Two Arrays II
-Design HashMap
+Valid anagram <br>
+Two sum<br>
+Longest substring without repeating characters<br>
+First unique character in string<br>
+Longest palindrome<br>
+Minimum Index Sum of Two Lists<br>
+Intersection of Two Arrays II<br>
+Design HashMap<br>
 
 https://leetcode.com/problems/valid-anagram/description/
 https://leetcode.com/problems/two-sum/description/
