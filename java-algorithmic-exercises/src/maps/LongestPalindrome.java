@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LongestPalindrome {
+
+    //the longest palindrome that CAN be built with those letters
     public static int longestPalindrome(String s) {
         Map<Character, Integer> map = new HashMap<>();
         for (char c : s.toCharArray()) {
