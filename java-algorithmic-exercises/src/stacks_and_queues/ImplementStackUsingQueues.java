@@ -3,11 +3,11 @@ package stacks_and_queues;
 import java.util.LinkedList;
 import java.util.Queue;
 
-class MyStack {
+class StackUsingQueues {
     private Queue<Integer> mainQueue;
     private Queue<Integer> tempQueue;
 
-    public MyStack() {
+    public StackUsingQueues() {
         mainQueue = new LinkedList<>();
         tempQueue = new LinkedList<>();
     }
@@ -38,12 +38,12 @@ class MyStack {
 public class ImplementStackUsingQueues {
     public static void main(String[] args) {
 
-        MyStack myStack = new MyStack();
-        myStack.push(1);
-        myStack.push(2);
-        myStack.top(); // return 2
-        myStack.pop(); // return 2
-        myStack.empty(); // return False
+        StackUsingQueues stackUsingQueues = new StackUsingQueues();
+        stackUsingQueues.push(1);
+        stackUsingQueues.push(2);
+        stackUsingQueues.top(); // return 2
+        stackUsingQueues.pop(); // return 2
+        stackUsingQueues.empty(); // return False
 
     }
 }

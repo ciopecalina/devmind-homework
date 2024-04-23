@@ -3,11 +3,11 @@ package stacks_and_queues;
 import java.util.Deque;
 import java.util.LinkedList;
 
-class MyStack {
+class StackWithMin {
     private Deque<Integer> stack;
     private Deque<Integer> min;
 
-    public MyStack() {
+    public StackWithMin() {
         stack = new LinkedList<>();
         min = new LinkedList<>();
     }

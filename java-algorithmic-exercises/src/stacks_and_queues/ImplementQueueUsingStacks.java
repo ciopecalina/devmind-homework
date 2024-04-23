@@ -3,11 +3,11 @@ package stacks_and_queues;
 import java.util.Deque;
 import java.util.LinkedList;
 
-class MyQueue {
+class QueueUsingStacks {
     private Deque<Integer> mainStack;
     private Deque<Integer> tempStack;
 
-    public MyQueue() {
+    public QueueUsingStacks() {
         mainStack = new LinkedList<>();
         tempStack = new LinkedList<>();
     }
