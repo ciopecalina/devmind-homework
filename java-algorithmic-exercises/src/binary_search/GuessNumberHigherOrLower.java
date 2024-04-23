@@ -1,6 +1,6 @@
 package binary_search;
 
-public class GuessNumber {
+public class GuessNumberHigherOrLower {
 //    /**
 //     * Forward declaration of guess API.
 //     *
