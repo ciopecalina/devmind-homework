@@ -14,13 +14,11 @@ class MyStack {
 
     public void push(int x) {
         while (!mainQueue.isEmpty()) {
-            tempQueue.add(mainQueue.poll());
+            tempQueue.offer(mainQueue.poll());
         }
-
-        mainQueue.add(x);
-
+        mainQueue.offer(x);
         while (!tempQueue.isEmpty()) {
-            mainQueue.add(tempQueue.poll());
+            mainQueue.offer(tempQueue.poll());
         }
     }
 
@@ -40,11 +38,12 @@ class MyStack {
 public class ImplementStackUsingQueues {
     public static void main(String[] args) {
 
-        //Your MyStack object will be instantiated and called as such:
-//        MyStack obj = new MyStack();
-//        obj.push(x);
-//        int param_2 = obj.pop();
-//        int param_3 = obj.top();
-//        boolean param_4 = obj.empty();
+        MyStack myStack = new MyStack();
+        myStack.push(1);
+        myStack.push(2);
+        myStack.top(); // return 2
+        myStack.pop(); // return 2
+        myStack.empty(); // return False
+
     }
 }
