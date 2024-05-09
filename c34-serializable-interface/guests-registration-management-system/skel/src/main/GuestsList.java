@@ -261,20 +261,23 @@ public class GuestsList implements Serializable {
 
     public void writeToBinaryFile() throws IOException {
         try (ObjectOutputStream binaryFileOut = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(serialFileName)))) {
-            binaryFileOut.writeObject(this.guests);
+            binaryFileOut.writeObject(guests);
         }
     }
 
+    // TO DO:
     public void readFromBinaryFile() throws IOException {
+        resetList();
         try (ObjectInputStream binaryFileIn = new ObjectInputStream(new BufferedInputStream(new FileInputStream(serialFileName)))) {
             Object obj = binaryFileIn.readObject();
-            this.guests = (ArrayList<Guest>) obj;
-            this.numOfGuests = this.guests.size();
+            guests = (ArrayList<Guest>) obj;
+            numOfGuests = this.guests.size();
         } catch (ClassNotFoundException e) {
             System.out.println("A class not found exception: " + e.getMessage());
         }
     }
 
+    // TO DO:
     public void resetList() {
         this.guests.clear();
         this.numOfGuests = 0;

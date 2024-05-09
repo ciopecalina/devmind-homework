@@ -1,11 +1,11 @@
 package main;
 
-import java.io.*;
-import java.util.Scanner;
+import java.io.IOException;
 import java.util.List;
+import java.util.Scanner;
 
 public class Exercise {
-    private  void showCommands() {
+    private void showCommands() {
         System.out.println("help         - Afiseaza aceasta lista de comenzi");
         System.out.println("add          - Adauga o noua persoana (inscriere)");
         System.out.println("check        - Verifica daca o persoana este inscrisa la eveniment");
@@ -22,9 +22,9 @@ public class Exercise {
         System.out.println("restore      - Completeaza lista cu informatii salvate anterior");
         System.out.println("reset        - Sterge informatiile salvate despre invitati");
         System.out.println("quit         - Inchide aplicatia");
-   }
-   
-   private void addNewGuest(Scanner sc, GuestsList list) {
+    }
+
+    private void addNewGuest(Scanner sc, GuestsList list) {
         String lastName = sc.nextLine();
         String firstName = sc.nextLine();
         String email = sc.nextLine();
@@ -57,7 +57,7 @@ public class Exercise {
         }
 
         if (foundGuest == null) System.out.println("Not found");
-          else System.out.println(foundGuest);
+        else System.out.println(foundGuest);
     }
 
     private void removeGuest(Scanner sc, GuestsList list) {
@@ -149,59 +149,70 @@ public class Exercise {
         }
     }
 
-  private void searchList(Scanner sc, GuestsList list) {
-      String match = sc.nextLine();
-      List<Guest> results = list.partialSearch(match);
-      for (Guest g : results)
-        System.out.println(g.toString());
-      if (results.size() == 0)
-        System.out.println("Nothing found");
-  }
+    private void searchList(Scanner sc, GuestsList list) {
+        String match = sc.nextLine();
+        List<Guest> results = list.partialSearch(match);
+        for (Guest g : results)
+            System.out.println(g.toString());
+        if (results.size() == 0)
+            System.out.println("Nothing found");
+    }
 
-  private static void saveList(GuestsList list) throws IOException {
+    // TO DO:
+    private static void saveList(GuestsList list) throws IOException {
         list.writeToBinaryFile();
-  }
 
-  private static void restoreList(GuestsList list) throws IOException {
+    }
+
+    // TO DO:
+    private static void restoreList(GuestsList list) throws IOException {
         list.readFromBinaryFile();
-  }
+    }
 
-  private static void resetList(GuestsList list) {
+    // TO DO:
+    private static void resetList(GuestsList list) {
         list.resetList();
-  }
-  public void solve(Scanner scanner) {
-      int size = scanner.nextInt();
-      scanner.nextLine();
+    }
 
-      GuestsList list = new GuestsList(size);
+    public void solve(Scanner scanner) throws IOException {
+        int size = scanner.nextInt();
+        scanner.nextLine();
 
-      boolean running = true;
-      while (running) {
-          String command = scanner.nextLine();
+        GuestsList list = new GuestsList(size);
+        restoreList(list);
 
-          switch (command) {
-              case "help" -> showCommands();
-              case "add" -> addNewGuest(scanner, list);
-              case "check" -> checkGuest(scanner, list);
-              case "remove" -> removeGuest(scanner, list);
-              case "update" -> updateGuest(scanner, list);
-              case "guests" -> list.showGuestsList();
-              case "waitlist" -> list.showWaitingList();
-              case "available" -> System.out.println("Numarul de locuri ramase: " + list.numberOfAvailableSpots());
-              case "guests_no" -> System.out.println("Numarul de participanti: " + list.numberOfGuests());
-              case "waitlist_no" -> System.out.println("Dimensiunea listei de asteptare: " + list.numberOfPeopleWaiting());
-              case "subscribe_no" -> System.out.println("Numarul total de persoane: " + list.numberOfPeopleTotal());
-              case "search" -> searchList(scanner, list);
-              case "quit" -> {
-                  System.out.println("Aplicatia se inchide...");
-                  scanner.close();
-                  running = false;
-              }
-              default -> {
-                  System.out.println("Comanda introdusa nu este valida.");
-                  System.out.println("Incercati inca o data.");
-              }
-          }
-      }
-  }
+        boolean running = true;
+        while (running) {
+
+            String command = scanner.nextLine();
+
+            switch (command) {
+                case "help" -> showCommands();
+                case "add" -> addNewGuest(scanner, list);
+                case "check" -> checkGuest(scanner, list);
+                case "remove" -> removeGuest(scanner, list);
+                case "update" -> updateGuest(scanner, list);
+                case "guests" -> list.showGuestsList();
+                case "waitlist" -> list.showWaitingList();
+                case "available" -> System.out.println("Numarul de locuri ramase: " + list.numberOfAvailableSpots());
+                case "guests_no" -> System.out.println("Numarul de participanti: " + list.numberOfGuests());
+                case "waitlist_no" ->
+                        System.out.println("Dimensiunea listei de asteptare: " + list.numberOfPeopleWaiting());
+                case "subscribe_no" -> System.out.println("Numarul total de persoane: " + list.numberOfPeopleTotal());
+                case "search" -> searchList(scanner, list);
+                case "quit" -> {
+
+                    System.out.println("Aplicatia se inchide...");
+                    saveList(list);
+                    scanner.close();
+                    running = false;
+                }
+                default -> {
+                    System.out.println("Comanda introdusa nu este valida.");
+                    System.out.println("Incercati inca o data.");
+                    saveList(list);
+                }
+            }
+        }
+    }
 }
