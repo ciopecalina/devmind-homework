@@ -46,7 +46,9 @@ public class CarRentalSystem {
         for (Map.Entry<String, String> entry : rentedCars.entrySet())
             if (entry.getKey().equals(plateNo)) currentOwner = entry.getValue();
 
-        owners.get(currentOwner).remove(plateNo);
+        if (currentOwner != null && owners.containsKey(currentOwner)) {
+            owners.get(currentOwner).remove(plateNo);
+        }
 
         return rentedCars.remove(plateNo);
     }
@@ -83,13 +85,11 @@ public class CarRentalSystem {
         }
     }
 
-    private void resetBinaryFile() {
-        try (ObjectOutputStream binaryFileOut = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(binaryFileName)))) {
-            binaryFileOut.writeObject(new HashMap<String, String>());
-            binaryFileOut.writeObject(new HashMap<String, RentedCars>());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void resetBinaryFile() throws IOException {
+        rentedCars = new HashMap<>();
+        owners = new HashMap<>();
+
+        writeToBinaryFile();
     }
 
     private static void printCommandsList() {
@@ -124,7 +124,8 @@ public class CarRentalSystem {
                     String plateNo = getPlateNo(sc);
                     boolean carRent = isCarRent(plateNo);
 
-                    if (!carRent) System.out.println("Masina cautata nu a fost inchiriata.");
+                    if (!carRent)
+                        System.out.println("Masina " + plateNo + " nu a fost inchiriata.");
                     else {
                         String current = getCarRent(plateNo);
                         System.out.printf("Masina %s a fost inchiriata de %s.%n", plateNo, current);
@@ -133,6 +134,9 @@ public class CarRentalSystem {
                 case "remove" -> {
                     String plateNo = getPlateNo(sc);
                     String removedOwner = returnCar(plateNo);
+                    if (!removedOwner.isEmpty()) {
+                        System.out.printf("Masina %s inchiriata de %s a fost returnata.%n", plateNo, removedOwner);
+                    }
                 }
                 case "getOwner" -> {
                     String plateNo = getPlateNo(sc);
