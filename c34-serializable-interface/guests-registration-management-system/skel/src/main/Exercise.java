@@ -200,8 +200,10 @@ public class Exercise {
                         System.out.println("Dimensiunea listei de asteptare: " + list.numberOfPeopleWaiting());
                 case "subscribe_no" -> System.out.println("Numarul total de persoane: " + list.numberOfPeopleTotal());
                 case "search" -> searchList(scanner, list);
+                case "save" -> saveList(list);
+                case "restore" -> restoreList(list);
+                case "reset" -> resetList(list);
                 case "quit" -> {
-
                     System.out.println("Aplicatia se inchide...");
                     saveList(list);
                     scanner.close();
