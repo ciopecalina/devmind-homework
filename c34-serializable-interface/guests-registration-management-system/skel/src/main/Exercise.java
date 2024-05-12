@@ -212,7 +212,6 @@ public class Exercise {
                 default -> {
                     System.out.println("Comanda introdusa nu este valida.");
                     System.out.println("Incercati inca o data.");
-                    saveList(list);
                 }
             }
         }

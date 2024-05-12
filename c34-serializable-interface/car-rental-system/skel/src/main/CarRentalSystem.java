@@ -88,8 +88,6 @@ public class CarRentalSystem {
     private void resetBinaryFile() throws IOException {
         rentedCars = new HashMap<>();
         owners = new HashMap<>();
-
-        writeToBinaryFile();
     }
 
     private static void printCommandsList() {
@@ -101,6 +99,9 @@ public class CarRentalSystem {
         System.out.println("totalRented  - Afiseaza numarul de masini inchiriate");
         System.out.println("getCarsNo    - Afiseaza numarul de masini inchiriate de un anumit proprietar");
         System.out.println("getCarsList  - Afiseaza lista de masini inchiriate de un anumit proprietar");
+        System.out.println("save         - Se salveaza datele in fisier");
+        System.out.println("restore      - Se preiau datele din fisier");
+        System.out.println("reset        - Se sterg toate datele");
         System.out.println("quit         - Inchide aplicatia");
     }
 
@@ -109,6 +110,8 @@ public class CarRentalSystem {
 
         while (!quit) {
             String command = sc.nextLine();
+
+            readFromBinaryFile();
 
             switch (command) {
                 case "help" -> printCommandsList();
@@ -152,12 +155,15 @@ public class CarRentalSystem {
                     readFromBinaryFile();
                 }
                 case "reset" -> {
+                    rentedCars.clear();
+                    owners.clear();
                     resetBinaryFile();
                 }
                 case "totalRented" -> System.out.println(totalCarsRented());
                 case "getCarsNo" -> getCarsNo(getOwnerName(sc));
                 case "getCarsList" -> getCarsList(getOwnerName(sc));
                 case "quit" -> {
+                    writeToBinaryFile();
                     System.out.println("Aplicatia se inchide...");
                     quit = true;
                 }
